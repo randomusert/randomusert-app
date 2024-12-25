@@ -101,7 +101,7 @@ function about() {
     parent: BrowserWindow.getFocusedWindow(), // Makes it a child window
     modal: true, // Makes it a modal dialog
     show: false, // Don't show until fully loaded
-    frame: false, // Remove window frame
+    //frame: false, // Remove window frame
     webPreferences: {
       nodeIntegration: true, // Enable Node.js integration if needed
       contextIsolation: false, // Set to false for simple projects
