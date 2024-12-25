@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const path = require('node:path');
+const popup = require("./popup")
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -21,7 +22,7 @@ const toolbar = [
       {
         label: 'issues',
         click: () => {
-          window.open('https://github.com/randomusert')
+          popup.issuepopup();
         }
       },
       {
@@ -42,12 +43,20 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
       preload: path.join(__dirname, 'preload.js'),
+      
     },
   });
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
+
+
+ 
+  
+  
 
   // Open the DevTools.
   //mainWindow.webContents.openDevTools();
@@ -92,7 +101,7 @@ function about() {
     parent: BrowserWindow.getFocusedWindow(), // Makes it a child window
     modal: true, // Makes it a modal dialog
     show: false, // Don't show until fully loaded
-    frame: false, // Remove window frame
+    //frame: false, // Remove window frame
     webPreferences: {
       nodeIntegration: true, // Enable Node.js integration if needed
       contextIsolation: false, // Set to false for simple projects
