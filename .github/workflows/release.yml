@@ -1,0 +1,30 @@
+name: Build and Upload Electron App
+
+on: 
+  schedule: 
+    - cron: '0 0 * * *' # Runs daily at midnight UTC
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                node-version: '14'
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Build Electron app
+              run: npm run build
+
+            - name: Upload build artifact
+              uses: actions/upload-artifact@v2
+              with:
+                name: electron-app-build
+                path: out/ # Replace with the actual path to your build artifact

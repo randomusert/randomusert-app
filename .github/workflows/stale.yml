@@ -1,0 +1,22 @@
+name: Mark stale issues and pull requests
+
+on:
+  schedule:
+  - cron: '38 4 * * *'
+
+jobs:
+  stale:
+
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+    - uses: actions/stale@v5
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-issue-message: 'this issue has been labeled as stale because it has not had activity for 60 days.'
+        stale-pr-message: 'this pull request has been labeled as stale because it has not had activity for 60 days.'
+        stale-issue-label: 'stale'
+        stale-pr-label: 'stale'
