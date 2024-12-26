@@ -20,12 +20,6 @@ const toolbar = [
         }
       },
       {
-        label: 'issues',
-        click: () => {
-          popup.issuepopup();
-        }
-      },
-      {
         label: 'quit',
         click: () => {
           app.quit();
@@ -77,9 +71,9 @@ app.whenReady().then(() => {
   });
   if (Notification.isSupported()) {
     const notification = new Notification({
-      title: 'Hello World!',
+      title: 'app launched',
       subtitle: 'Nice to see you',
-      body: 'Are you having a good day?',
+      body: 'app has been launched',
       hasReply: true
     })
   
