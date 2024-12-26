@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu,  Notification } = require('electron');
 const path = require('node:path');
 const popup = require("./popup")
 
@@ -59,7 +59,7 @@ const createWindow = () => {
   
 
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -75,6 +75,26 @@ app.whenReady().then(() => {
       createWindow();
     }
   });
+  if (Notification.isSupported()) {
+    const notification = new Notification({
+      title: 'Hello World!',
+      subtitle: 'Nice to see you',
+      body: 'Are you having a good day?',
+      hasReply: true
+    })
+  
+    notification.on('show', () => console.log('Notification shown'))
+    notification.on('click', () => console.log('Notification clicked'))
+    notification.on('close', () => console.log('Notification closed'))
+    notification.on('reply', (event, reply) => {
+      console.log(`Reply: ${reply}`)
+    })
+  
+    notification.show()
+  } else {
+    console.log('Hm, are notifications supported on this system?')
+  }
+  
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -112,5 +132,6 @@ function about() {
   popup.once('ready-to-show', () => popup.show()); // Show when ready
   //popup.webContents.openDevTools(); // Open DevTools
 }
+
 
 
