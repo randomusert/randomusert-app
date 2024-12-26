@@ -1,8 +1,14 @@
-name: Build and Upload Electron App
+name: Manual workflow
 
-on: 
-  schedule: 
-    - cron: '0 10 * * *' # Runs daily at midnight UTC
+on:
+    workflow_dispatch:
+        inputs:
+            build:
+                description: 'Build the Electron app'
+                required: true
+                default: 'true'
+
+
 
 jobs:
     build:
